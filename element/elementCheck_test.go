@@ -2,13 +2,15 @@ package elementcheck
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 // TestRemoveElement テスト関数
-// ref: https://qiita.com/saya713y/items/f7ee07e8f12ab85ed9bf
 func TestRemoveElement(t *testing.T) {
-	// TableDriven(DDD)
+	// TableDriven
 	// PHPUnitのdataProviderのように振る舞わせる
+	// ref: https://qiita.com/atotto/items/f6b8c773264a3183a53c
 	cases := []struct {
 		nums []int
 		val  int
@@ -19,11 +21,12 @@ func TestRemoveElement(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		if RemoveElement(c.nums, c.val) != c.exp {
-			t.Error("期待する値と一致しませんでした。")
-		}
+		ret := new(ElementCheck).RemoveElement(c.nums, c.val)
+		// ref: https://qiita.com/hein946/items/a4a4b9241b14bbff6299
+		assert.Equal(t, ret, c.exp, "返り値と期待する値が一緒か確認する")
 	}
 
+	// ref: https://qiita.com/saya713y/items/f7ee07e8f12ab85ed9bf
 	// t.Run("len=7", func(t *testing.T) {
 	// 	// 期待する値
 	// 	exp := 5
@@ -34,16 +37,6 @@ func TestRemoveElement(t *testing.T) {
 	// 		// t.Fatal("結果:", res, "期待:", exp) || t.Fatalf()
 
 	// 		// 処理は継続(t.Errorf()も同じ)
-	// 		t.Error("期待する値と一致しませんでした。")
-	// 		t.Fail()
-	// 	}
-	// })
-
-	// t.Run("len=4", func(t *testing.T) {
-	// 	// 期待する値
-	// 	exp := 2
-
-	// 	if RemoveElement([]int{3, 2, 2, 3}, 3) != exp {
 	// 		t.Error("期待する値と一致しませんでした。")
 	// 		t.Fail()
 	// 	}
