@@ -2,15 +2,14 @@ package elementcheck
 
 import (
 	"testing"
-
-	"github.com/stretchr/testify/assert"
+	// "github.com/stretchr/testify/assert"
 )
 
 // TestRemoveElement テスト関数
 func TestRemoveElement(t *testing.T) {
 	// TableDriven
 	// PHPUnitのdataProviderのように振る舞わせる
-	// ref: https://qiita.com/atotto/items/f6b8c773264a3183a53c
+	// ref: https://qiita.com/hein946/items/a4a4b9241b14bbff6299
 	cases := []struct {
 		nums []int
 		val  int
@@ -22,8 +21,15 @@ func TestRemoveElement(t *testing.T) {
 
 	for _, c := range cases {
 		ret := new(ElementCheck).RemoveElement(c.nums, c.val)
-		// ref: https://qiita.com/hein946/items/a4a4b9241b14bbff6299
-		assert.Equal(t, ret, c.exp, "返り値と期待する値が一緒か確認する")
+
+		// アサートはgolangだとおすすめしないらしい
+		// ref: https://golang.org/doc/faq#assertions
+		// assert.Equal(t, ret, c.exp, "返り値と期待する値が一緒か確認する")
+
+		// ref: https://qiita.com/atotto/items/f6b8c773264a3183a53c
+		if ret != c.exp {
+			t.Error("返り値と期待する値が一緒じゃないのでコードがおかしいです。")
+		}
 	}
 
 	// ref: https://qiita.com/saya713y/items/f7ee07e8f12ab85ed9bf
